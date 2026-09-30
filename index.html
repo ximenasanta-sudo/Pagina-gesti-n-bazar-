@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bazar Digital — Formularios del sistema</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner site-header__inner--with-logo">
+      <img src="logo.png" alt="Logo Institución Educativa La Piedad" class="site-header__logo">
+      <div>
+        <p class="site-header__eyebrow"> I. E La Piedad · moneda digital interna</p>
+        <h1>Bazar Digital</h1>
+        <p>Formularios para el registro de usuarios, tiendas y productos, la recarga de saldo, la compra con QR y la consulta de reportes del bazar.</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs-nav" role="tablist" aria-label="Formularios del sistema">
+    <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-usuario" id="tab-usuario" data-panel="panel-usuario">1. Usuario</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-tienda" id="tab-tienda" data-panel="panel-tienda">2. Tienda</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-producto" id="tab-producto" data-panel="panel-producto">3. Producto</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-recarga" id="tab-recarga" data-panel="panel-recarga">4. Recarga (banco)</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-pedido" id="tab-pedido" data-panel="panel-pedido">5. Pedido / compra</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-pago" id="tab-pago" data-panel="panel-pago">6. Pago QR</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-reporte" id="tab-reporte" data-panel="panel-reporte">7. Reportes</button>
+  </nav>
+
+  <main>
+
+    <!-- 1. REGISTRO DE USUARIO -->
+    <section class="panel is-active" id="panel-usuario" role="tabpanel" aria-labelledby="tab-usuario">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Registro de usuario</h2>
+          <span class="ticket__tag">Perfil de comunidad educativa</span>
+        </div>
+        <p class="ticket__desc">Crea el perfil de coordinador, vendedor, comprador, docente o padre de familia, y su cuenta digital asociada.</p>
+
+        <form id="form-usuario">
+          <div class="field-row">
+            <div class="field">
+              <label for="u-nombres">Nombres</label>
+              <input type="text" id="u-nombres" name="nombres" required>
+            </div>
+            <div class="field">
+              <label for="u-apellidos">Apellidos</label>
+              <input type="text" id="u-apellidos" name="apellidos" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="u-documento">Documento de identidad</label>
+              <input type="text" id="u-documento" name="documento" required>
+            </div>
+            <div class="field">
+              <label for="u-rol">Rol en el bazar</label>
+              <select id="u-rol" name="rol" required>
+                <option value="">Selecciona un rol</option>
+                <option value="coordinador">Coordinador / banquero</option>
+                <option value="vendedor">Vendedor de stand</option>
+                <option value="comprador">Comprador (estudiante)</option>
+                <option value="docente">Docente</option>
+                <option value="padre">Padre de familia / acudiente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="u-correo">Correo electrónico</label>
+              <input type="email" id="u-correo" name="correo" placeholder="para el envío de facturas" required>
+            </div>
+            <div class="field">
+              <label for="u-telefono">Teléfono de contacto</label>
+              <input type="tel" id="u-telefono" name="telefono">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="u-acudido">Información del estudiante</label>
+            <input type="text" id="u-acudido" name="acudido" class="hint-field" placeholder="Grado">
+            <span class="hint">Se usará para enviar notificaciones de movimientos del estudiante.</span>
+          </div>
+
+          <fieldset>
+            <legend>Notificaciones</legend>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="notif" value="correo" checked> Notificar por correo</label>
+              <label><input type="checkbox" name="notif" value="sms"> Notificar por SMS</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="u-pin">PIN de 4 dígitos para compras</label>
+            <input type="password" id="u-pin" name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Limpiar</button>
+            <button type="submit" class="primary">Crear usuario</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 2. REGISTRO DE TIENDA -->
+    <section class="panel" id="panel-tienda" role="tabpanel" aria-labelledby="tab-tienda">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Registro de tienda / stand</h2>
+          <span class="ticket__tag">Puesto del bazar</span>
+        </div>
+        <p class="ticket__desc">Registra un stand, asigna su responsable y abre su cuenta digital receptora de pagos.</p>
+
+        <form id="form-tienda">
+          <div class="field-row">
+            <div class="field">
+              <label for="t-nombre">Nombre de la tienda</label>
+              <input type="text" id="t-nombre" name="nombreTienda" required>
+            </div>
+            <div class="field">
+              <label for="t-codigo">Código de tienda</label>
+              <input type="text" id="t-codigo" name="codigoTienda" placeholder="ej. TDA-004" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="t-responsable">Responsable asignado</label>
+              <input type="text" id="t-responsable" name="responsable" placeholder="Nombre del vendedor a cargo" required>
+            </div>
+            <div class="field">
+              <label for="t-categoria">Categoría</label>
+              <select id="t-categoria" name="categoria">
+                <option value="comida">Comida y bebida</option>
+                <option value="juegos">Juegos y entretenimiento</option>
+                <option value="manualidades">Manualidades</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="t-ubicacion">Ubicación en el bazar</label>
+            <input type="text" id="t-ubicacion" name="ubicacion" placeholder="ej. Salón 4">
+          </div>
+
+          <div class="field">
+            <label for="t-cuenta">Cuenta digital de la tienda</label>
+            <input type="text" id="t-cuenta" name="cuentaTienda" placeholder="Se genera automáticamente" disabled>
+            <span class="hint">Aquí se recibirán todos los pagos de los compradores.</span>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Limpiar</button>
+            <button type="submit" class="primary">Registrar tienda</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. REGISTRO DE PRODUCTO -->
+    <section class="panel" id="panel-producto" role="tabpanel" aria-labelledby="tab-producto">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Registro de producto</h2>
+          <span class="ticket__tag">Catálogo de tienda</span>
+        </div>
+        <p class="ticket__desc">Carga los productos que ofrecerá cada tienda, con su código, nombre y valor en moneda digital.</p>
+
+        <form id="form-producto">
+          <div class="field">
+            <label for="p-tienda">Tienda</label>
+            <select id="p-tienda" name="tienda" required>
+              <option value="">Selecciona una tienda</option>
+              <option value="TDA-001">Dulces El Recreo (TDA-001)</option>
+              <option value="TDA-002">Perritos y Limonada (TDA-002)</option>
+              <option value="TDA-003">Manualidades Creativas (TDA-003)</option>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="p-codigo">Código del producto</label>
+              <input type="text" id="p-codigo" name="codigoProducto" placeholder="ej. PRD-014" required>
+            </div>
+            <div class="field">
+              <label for="p-nombre">Nombre del producto</label>
+              <input type="text" id="p-nombre" name="nombreProducto" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="p-valor">Valor (monedas digitales)</label>
+              <input type="number" id="p-valor" name="valorProducto" min="0" step="1" required>
+            </div>
+            <div class="field">
+              <label for="p-stock">Existencias disponibles</label>
+              <input type="number" id="p-stock" name="stockProducto" min="0" step="1">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="p-descripcion">Descripción (opcional)</label>
+            <textarea id="p-descripcion" name="descripcionProducto"></textarea>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Limpiar</button>
+            <button type="submit" class="primary">Guardar producto</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. RECARGA DE SALDO (BANCO) -->
+    <section class="panel" id="panel-recarga" role="tabpanel" aria-labelledby="tab-recarga">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Recarga de saldo digital</h2>
+          <span class="ticket__tag">Operación del banco</span>
+        </div>
+        <p class="ticket__desc">El banquero vende moneda digital al usuario, recibe el efectivo y acredita el saldo en la cuenta digital del comprador.</p>
+
+        <form id="form-recarga">
+          <div class="field-row">
+            <div class="field">
+              <label for="r-usuario">Usuario a recargar</label>
+              <input type="text" id="r-usuario" name="usuarioRecarga" placeholder="Nombre o documento" required>
+            </div>
+            <div class="field">
+              <label for="r-banquero">Banquero que atiende</label>
+              <input type="text" id="r-banquero" name="banquero" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="r-efectivo">Efectivo recibido (COP)</label>
+              <input type="number" id="r-efectivo" name="efectivoRecibido" min="0" step="1000" required>
+            </div>
+            
+          </div>
+
+          <fieldset>
+            <legend>Método de pago recibido</legend>
+            <div class="radio-group">
+              <label><input type="radio" name="metodoPago" value="efectivo" checked> Efectivo</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="r-monedas">Monedas digitales a acreditar</label>
+            <input type="number" id="r-monedas" name="monedasAcreditar" min="0" step="1" required>
+            <span class="hint">Este saldo quedará disponible en la cuenta digital del usuario para comprar en las tiendas.</span>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Limpiar</button>
+            <button type="submit" class="primary">Confirmar recarga</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 5. PEDIDO / COMPRA -->
+    <section class="panel" id="panel-pedido" role="tabpanel" aria-labelledby="tab-pedido">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Generar pedido</h2>
+          <span class="ticket__tag">Compra del cliente</span>
+        </div>
+        <p class="ticket__desc">El cliente selecciona los productos deseados. Al confirmar, se genera la factura y se envía por correo.</p>
+
+        <form id="form-pedido">
+          <div class="field-row">
+            <div class="field">
+              <label for="pd-cliente">Cliente</label>
+              <input type="text" id="pd-cliente" name="cliente" placeholder="Nombre o documento" required>
+            </div>
+            <div class="field">
+              <label for="pd-correo">Correo para la factura</label>
+              <input type="email" id="pd-correo" name="correoFactura" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="pd-tienda">Tienda</label>
+            <select id="pd-tienda" name="tiendaPedido" required>
+              <option value="">Selecciona una tienda</option>
+              <option value="TDA-001">Dulces El Recreo (TDA-001)</option>
+              <option value="TDA-002">Perritos y Limonada (TDA-002)</option>
+              <option value="TDA-003">Manualidades Creativas (TDA-003)</option>
+            </select>
+          </div>
+
+          <div class="line-items">
+            <table>
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th style="width:90px;">Cantidad</th>
+                  <th style="width:110px;">Valor unit.</th>
+                  <th style="width:110px;">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="lineas-pedido">
+                <tr>
+                  <td>
+                    <select name="producto1">
+                      <option value="">Selecciona producto</option>
+                      <option value="dulce" data-valor="2">Bombón artesanal — 2</option>
+                      <option value="perro" data-valor="6">Perro caliente — 6</option>
+                      <option value="limonada" data-valor="3">Limonada — 3</option>
+                    </select>
+                  </td>
+                  <td><input type="number" name="cantidad1" min="1" value="1"></td>
+                  <td class="col-valor">—</td>
+                  <td class="col-total">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <button type="button" class="btn-add-row" id="btn-agregar-linea">+ Agregar producto</button>
+
+          <div class="order-total">
+            <span class="label">Total del pedido</span>
+            <span class="amount" id="total-pedido">0 monedas</span>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Cancelar</button>
+            <button type="submit" class="primary">Generar factura</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 6. PAGO CON QR -->
+    <section class="panel" id="panel-pago" role="tabpanel" aria-labelledby="tab-pago">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Pago con código QR</h2>
+          <span class="ticket__tag">Transacción tienda ↔ cliente</span>
+        </div>
+        <p class="ticket__desc">La tienda genera un QR por el valor del pedido. El cliente lo escanea o ingresa su PIN para autorizar el descuento de su saldo.</p>
+
+        <div class="qr-box">
+          <div class="qr-box__code" aria-hidden="true"></div>
+          <div class="qr-box__text">
+            <h3>Factura N.° 000482</h3>
+            <p>Tienda: Perritos y Limonada · Valor: 15 monedas digitales</p>
+          </div>
+        </div>
+
+        <form id="form-pago">
+          <div class="field-row">
+            <div class="field">
+              <label for="pg-factura">Número de factura</label>
+              <input type="text" id="pg-factura" name="numeroFactura" value="000482" disabled>
+            </div>
+            <div class="field">
+              <label for="pg-monto">Monto a descontar</label>
+              <input type="number" id="pg-monto" name="montoDescuento" value="15" disabled>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="pg-pin">PIN del comprador</label>
+            <input type="password" id="pg-pin" name="pinComprador" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required>
+            <span class="hint">Al confirmar, el saldo se transfiere de la cuenta del comprador a la cuenta de la tienda.</span>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Cancelar</button>
+            <button type="submit" class="primary">Autorizar pago</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 7. REPORTES -->
+    <section class="panel" id="panel-reporte" role="tabpanel" aria-labelledby="tab-reporte">
+      <div class="ticket">
+        <div class="ticket__head">
+          <h2>Consulta de reportes</h2>
+          <span class="ticket__tag">Trazabilidad</span>
+        </div>
+        <p class="ticket__desc">Genera reportes filtrados por usuario, producto o rango de montos, para control financiero del bazar.</p>
+
+        <form id="form-reporte">
+          <div class="field-row">
+            <div class="field">
+              <label for="rp-tipo">Tipo de reporte</label>
+              <select id="rp-tipo" name="tipoReporte">
+                <option value="usuario">Por usuario</option>
+                <option value="producto">Por producto</option>
+                <option value="tienda">Por tienda</option>
+                <option value="monto">Por rango de monto</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rp-referencia">Usuario, producto o tienda</label>
+              <input type="text" id="rp-referencia" name="referenciaReporte" placeholder="Nombre o código">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="rp-desde">Desde</label>
+              <input type="date" id="rp-desde" name="fechaDesde">
+            </div>
+            <div class="field">
+              <label for="rp-hasta">Hasta</label>
+              <input type="date" id="rp-hasta" name="fechaHasta">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="reset" class="secondary">Limpiar</button>
+            <button type="submit" class="primary">Generar reporte</button>
+          </div>
+        </form>
+
+        <div class="report-results">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Tienda</th>
+                <th>Producto</th>
+                <th>Monto</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>21/09/2026</td>
+                <td>Ana Martínez</td>
+                <td>Perritos y Limonada</td>
+                <td>Perro caliente</td>
+                <td>6 monedas</td>
+                <td><span class="badge">Completado</span></td>
+              </tr>
+              <tr>
+                <td>21/09/2026</td>
+                <td>Luis Gómez</td>
+                <td>Dulces El Recreo</td>
+                <td>Bombón artesanal x2</td>
+                <td>4 monedas</td>
+                <td><span class="badge">Completado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    Institución Educativa La Piedad · Sistema de gestión de bazar escolar · Formularios de front-end
+  </footer>
+
+  <script>
+    // --- Navegación entre pestañas ---
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+        panels.forEach(p => p.classList.remove('is-active'));
+
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.dataset.panel).classList.add('is-active');
+      });
+    });
+
+    // --- Cálculo simple del total del pedido (formulario 5) ---
+    const lineasBody = document.getElementById('lineas-pedido');
+    const totalPedido = document.getElementById('total-pedido');
+    let contadorLineas = 1;
+
+    function recalcularTotal() {
+      let total = 0;
+      lineasBody.querySelectorAll('tr').forEach(fila => {
+        const select = fila.querySelector('select');
+        const cantidadInput = fila.querySelector('input[type="number"]');
+        const valorCelda = fila.querySelector('.col-valor');
+        const totalCelda = fila.querySelector('.col-total');
+
+        const opcion = select.options[select.selectedIndex];
+        const valorUnit = opcion && opcion.dataset.valor ? Number(opcion.dataset.valor) : 0;
+        const cantidad = Number(cantidadInput.value) || 0;
+        const subtotal = valorUnit * cantidad;
+
+        valorCelda.textContent = valorUnit ? valorUnit : '—';
+        totalCelda.textContent = valorUnit ? subtotal : '—';
+        total += subtotal;
+      });
+      totalPedido.textContent = total + ' monedas';
+    }
+
+    lineasBody.addEventListener('change', recalcularTotal);
+    lineasBody.addEventListener('input', recalcularTotal);
+
+    document.getElementById('btn-agregar-linea').addEventListener('click', () => {
+      contadorLineas++;
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>
+          <select name="producto${contadorLineas}">
+            <option value="">Selecciona producto</option>
+            <option value="dulce" data-valor="2">Bombón artesanal — 2</option>
+            <option value="perro" data-valor="6">Perro caliente — 6</option>
+            <option value="limonada" data-valor="3">Limonada — 3</option>
+          </select>
+        </td>
+        <td><input type="number" name="cantidad${contadorLineas}" min="1" value="1"></td>
+        <td class="col-valor">—</td>
+        <td class="col-total">—</td>
+      `;
+      lineasBody.appendChild(fila);
+    });
+
+    // --- Evitar envío real de los formularios (son solo maquetas de front-end) ---
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Formulario listo para conectarse al backend: ' + form.id);
+      });
+    });
+  </script>
+
+</body>
+</html>
